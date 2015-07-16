@@ -2,6 +2,9 @@
 # Name: Taylor Murphy
 # Helper Function Tool
 ###############################################
+import fractions
+
+
 # Extended Euclidean algorithm 
 #   returns a triple (g, x, y), such that ax + by = g = gcd(a, b)
 def egcd_r(a, b):
@@ -55,15 +58,15 @@ def findModInverse(a, m):
 # Euler's totient function
 #   returns some integer that represents the positive integers 
 #   less than or equal to n that are relatively prime to n.
-#def phi(n):
-#    amount = 0
-#
-#    for k in range(1, n + 1):
-#        if fractions.gcd(n, k) == 1:
-#            #print(k)
-#            amount += 1
-#
-#    return amount
+def phi(n):
+    amount = 0
+    
+    for k in range(1, n + 1):
+        if fractions.gcd(n, k) == 1:
+            #print(k)
+            amount += 1
+
+    return amount
 
 
 ###################################################################
@@ -88,26 +91,42 @@ while progStatus != '7':
     
     if progStatus == '1':
         # returns a triple (g, x, y), such that ax + by = g = gcd(a, b)
-        a = raw_input("a?: ")
-        b = raw_input("b?: ")
+        a = input("a?: ")
+        b = input("b?: ")
         print (egcd_r(a, b))
             
     if progStatus == '2':    
         # returns a triple (g, x, y), such that ax + by = g = gcd(a, b)
-        a = raw_input("a?: ")
-        b = raw_input("b?: ")
+        a = input("a?: ")
+        b = input("b?: ")
         print (egcd_i(a, b))
         
     if progStatus == '3':
-        progStatus = '7'
-    if progStatus == '4':
-        progStatus = '7'
-    if progStatus == '5':
-        progStatus = '7'
-    if progStatus == '6':
-        progStatus = '7'
-         
+        #   returns the greatest common denominator. Thats it.
+        a = input("a?: ")
+        b = input("b?: ")
+        print (gcd(a, b))
     
+    if progStatus == '4':
+        #   returns the modular multiplicative inverse (x) of a and m.
+        #   where ax = 1 (mod m) (= means congruent here)
+        a = input("a?: ")
+        m = input("m?: ")
+        print (modinv(a, m))
+                
+    if progStatus == '5':
+        #   returns the modular multiplicative inverse (x) of a and m.
+        #   where ax = 1 (mod m) (= means congruent here)
+        a = input("a?: ")
+        m = input("m?: ")
+        print (findModInverse(a, m))
+        
+    if progStatus == '6':
+        #   returns some integer that represents the positive integers 
+        #   less than or equal to n that are relatively prime to n.
+        n = input("n?: ")
+        print (phi(n))        
+        
     if progStatus == '7':
         #exit program
         print("Exiting Helper Function, Goodbye")
