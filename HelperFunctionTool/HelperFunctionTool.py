@@ -68,6 +68,15 @@ def phi(n):
 
     return amount
 
+def expmod_recur(a,b,c):
+    if(b==1): return a%c
+    x = expmod_recur(a,b>>1,c)
+    x = (x*x)%c
+    if(b&1==1)==1: # if odd number
+        x = (x*a)%c
+    return x
+
+
 
 ###################################################################
 #Start of Helper Function Tool
@@ -76,7 +85,7 @@ progStatus = '0'
 
 print("Helper Function Tool")
 
-while progStatus != '7':
+while progStatus != '8':
     print("********************************************************")
     print("1. Extended Euclidean Algorithm-1")
     print("2. Extended Euclidean algorithm-2")
@@ -84,7 +93,8 @@ while progStatus != '7':
     print("4. Mod Inverse-1")
     print("5. Mod Inverse-2")
     print("6. Euler's Totient Function")
-    print("7. Quit")    
+    print("7. Modular Exponentiation")
+    print("8. Quit")    
         
     progStatus = raw_input("Please select from the options above: ")
     print("********************************************************")    
@@ -125,8 +135,14 @@ while progStatus != '7':
         #   returns some integer that represents the positive integers 
         #   less than or equal to n that are relatively prime to n.
         n = input("n?: ")
-        print (phi(n))        
+        print (phi(n))       
         
     if progStatus == '7':
+        a = input("a?: ")
+        b = 75949
+        c = 121477
+        print (expmod_recur(a,b,c))
+        
+    if progStatus == '8':
         #exit program
         print("Exiting Helper Function, Goodbye")
