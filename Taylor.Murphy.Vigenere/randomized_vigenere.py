@@ -56,21 +56,20 @@ def keywordFromSeed(seed):
     Letters = []
 
     while seed > 0:
-        Letters.insert(0,chr((seed % 100) % 26 + 65))
+        Letters.insert(0,chr((seed % 100)))
         seed = seed // 100
         
     return ''.join(Letters)
     
-def blockByConcat(message):
+def keyByConcat(message):
     
     message = list(map(ord,message))
-    encoded = 999
+    encoded = 0
         
     for i in range(len(message)):
-        encoded *= 1000
-        encoded += message[i]
-        
-    print (encoded)
+        encoded *= 100        
+        encoded += message[i]        
+
     return encoded     
 
 def encrypt(plain_text_message, keyword):
@@ -79,14 +78,19 @@ def encrypt(plain_text_message, keyword):
 def decrypt(cipher_text_message, keyword):
     pass
 
+#test block
+###############################################
 
-message = 'MATH'
-
-blockByConcat(message)
-
-keyWord = keywordFromSeed(999077065084072)
-print(keyWord)
-
+#symbols = """ABCDEFGHIJKLMNOPQRSTUVWXYZ"""
+#symbols = """ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~"""
+#
+#print (len(symbols))
+#print (symbols.index('A'))
+#message = """ !"#$%&'()*+,-./"""
+#
+#keyWord = keywordFromSeed(keyByConcat(message))
+#print(keyWord)
+#
 #char = chr((25) % 26 + 65)
 #print (char)
 
