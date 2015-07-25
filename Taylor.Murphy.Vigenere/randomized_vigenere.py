@@ -18,7 +18,7 @@ keywordFromSeed -
     or any value % 26 for that matter.
 
     S1:  seed = 12001907
-         l1   = 12001907 % 100 = 07 = H
+         l1   = 12001907 % 100 = 7 = H
          seed = 12001907 // 100 = 120019
     
     S2:  l2   = 120019 % 100 = 19 = T
@@ -35,6 +35,22 @@ keywordFromSeed -
     @return {string} keyword - a string representation of the integer seed
 #############################################################################
 """
+
+def buildVigenere(symbols):
+    n = len(symbols)
+
+    vigenere = [[0 for i in range(n)] for i in range(n)]
+
+    #Build the vigenere matrix
+    for i in range(n):
+        temp = symbols
+        for j in range(n):
+            r = random.randrange(len(temp))
+            vigenere[i][j] = temp[r]
+            temp.replace(temp[r],'')
+            
+    return vigenere
+    
 def keywordFromSeed(seed):
 
     Letters = []
@@ -44,42 +60,35 @@ def keywordFromSeed(seed):
         seed = seed // 100
         
     return ''.join(Letters)
+    
+def blockByConcat(message):
+    
+    message = list(map(ord,message))
+    encoded = 999
+        
+    for i in range(len(message)):
+        encoded *= 1000
+        encoded += message[i]
+        
+    print (encoded)
+    return encoded     
 
-#Describes itself
-def encrypt(plain_text_message,keyword):
+def encrypt(plain_text_message, keyword):
     pass
         
-#Describes itself
-def decrypt(cipher_text_message,keyword):
+def decrypt(cipher_text_message, keyword):
     pass
 
-"""           
-This will build and return the Vigenere matrix.
-You don't need to pass the seed or anything 
-for that matter to the function because once 
-the random number generator has been seeded 
-once at the top of the program, you don't have
-to worry about seeding anymore.
 
-Twist! Your vigenere cipher tableau will be a 
-95 x 95 matrix using the following symbols:
-"""
-def buildVigenere(symbols):
-    n = len(symbols)
+message = 'MATH'
 
-    vigenere = [[0 for i in range(n)] for i in range(n)]
+blockByConcat(message)
 
-    #Build the vigenere matrix
-    for i in range(n):
-        temp = symbols
-        
-        for j in range(n):
-            r = random.randrange(len(temp))
-            vigenere[i][j] = temp[r]
-            temp.replace(temp[r],'')
-            
-    return vigenere
+keyWord = keywordFromSeed(999077065084072)
+print(keyWord)
 
+#char = chr((25) % 26 + 65)
+#print (char)
 
 
 

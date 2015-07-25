@@ -10,7 +10,9 @@ import argparse
 import sys
 import randomized_vigenere as rv
 
-symbols = """!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\] ^_`abcdefghijklmnopqrstuvwxyz{|}~"""
+
+symbols = """ABCDEFGHIJKLMNOPQRSTUVWXYZ"""
+#symbols = """!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\] ^_`abcdefghijklmnopqrstuvwxyz{|}~"""
 
 def main():
     parser = argparse.ArgumentParser()
@@ -37,21 +39,65 @@ def main():
 
 if __name__ == '__main__':
     
-    main()
+
+    seed = 7487383487438734
+#    print ("Please enter the seed")
+#        seed = input("Seed:  ")
+    random.seed(seed)
+
+    #Extracts text version of the keyWord    
+    keyWord = rv.keywordFromSeed(seed)
+
+#    print(keyWord)    
     
+    #create and output Tableau to tableau.txt
+    #############################################    
     Tableau = open('tableau.txt', 'w')
 
     vigenere = rv.buildVigenere(symbols)
 
     for letter in vigenere:
         Tableau.write("%s\n" % letter)
+    #############################################
     
-    seed = 7487383487438734
+    #Testing Block
+    #############################################
+    progStatus = '0'
+    print ("Vigenère Encryption Tool")
+    print ("Written By: Taylor Murphy")
 
-    random.seed(7487383487438734)
-
-    keyWord = rv.keywordFromSeed(seed)
-
-    print(keyWord)    
+    while progStatus != '3':
+        print ("********************************************************")
+        print ("1. Encipher")
+        print ("2. Decipher")
+        print ("3. Quit")    
+        
+        progStatus = input("Please select from the options above: ")
+        print ("********************************************************")    
     
-    main()
+        if progStatus == '1':
+            pass
+        
+        if progStatus == '2':
+            pass
+        
+        if progStatus == '3':
+            #exit program
+            print ("Exiting Vigenère Encryption Tool, Goodbye")
+    
+    #############################################
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
