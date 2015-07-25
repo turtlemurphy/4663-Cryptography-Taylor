@@ -10,7 +10,7 @@ import re
 #Start of function definitions
 
 def generateAlphabet():
-    #Create empty alphabet string
+    #Create empty alphabet stringXX
     alphabet = ""
     
     #Generate the alphabet
