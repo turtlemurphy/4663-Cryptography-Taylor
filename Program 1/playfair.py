@@ -118,7 +118,7 @@ def ptxtDigrapher(ptxt):
     #Load digraphs into ptxtDigraphs
     i = 0
     ptxtDigraphs = []
-    for x in range(1, len(digraphArr)/2 + 1):
+    for x in range(1, (len(digraphArr)/2) + 1):
         ptxtDigraphs.append(digraphArr[i:i + 2])
         i = i + 2
         
@@ -236,25 +236,25 @@ def decrypt(ctxt, playfair):
 #Start of Playfair Encryption Tool
 progStatus = '0'
 
-print "Playfair Encryption Tool"
-print "Written By: Taylor Murphy"
+print ("Playfair Encryption Tool")
+print ("Written By: Taylor Murphy")
 
 while progStatus != '3':
-    print "********************************************************"
-    print "1. Encipher"
-    print "2. Decipher"
-    print "3. Quit"    
+    print ("********************************************************")
+    print ("1. Encipher")
+    print ("2. Decipher")
+    print ("3. Quit")    
         
-    progStatus = raw_input("Please select from the options above: ")
-    print "********************************************************"    
+    progStatus = input("Please select from the options above: ")
+    print ("********************************************************")    
     
     if progStatus == '1':
         
-        print "Please enter the key"
-        key = raw_input("Key:  ")
-        print('\n')
-        print "Please enter the message"
-        ptxt = raw_input("Message:  ")
+        print ("Please enter the key")
+        key = input("Key:  ")
+        print ('\n')
+        print ("Please enter the message")
+        ptxt = input("Message:  ")
                
         #prepare ptxt for encryption
         ptxt = cleanString(ptxt)
@@ -270,11 +270,11 @@ while progStatus != '3':
 
     if progStatus == '2':
         
-        print "Please enter the key: "
-        key = raw_input("Key:  ")
+        print ("Please enter the key: ")
+        key = input("Key:  ")
         print('\n')
-        print "Please enter the ciphertext"
-        ctxt = raw_input("Ciphertext:  ")
+        print ("Please enter the ciphertext")
+        ctxt = input("Ciphertext:  ")
         
         #create playfair matrix using key        
         playFair = generateSquare(key)
@@ -287,7 +287,7 @@ while progStatus != '3':
     
     if progStatus == '3':
         #exit program
-        print "Exiting Playfair Encryption Tool, Goodbye"
+        print ("Exiting Playfair Encryption Tool, Goodbye")
     
        
 
