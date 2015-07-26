@@ -37,17 +37,22 @@ keywordFromSeed -
 """
 
 def buildVigenere(symbols):
-    n = len(symbols)
-
-    vigenere = [[0 for i in range(n)] for i in range(n)]
+    Tableau = open('tableau.txt', 'w')
+    
+    alphabetLen = len(symbols)
+    vigenere = [[0 for i in range(alphabetLen)] for i in range(alphabetLen)]
 
     #Build the vigenere matrix
-    for i in range(n):
+    for i in range(alphabetLen):
         temp = symbols
-        for j in range(n):
+        for j in range(alphabetLen):
             r = random.randrange(len(temp))
             vigenere[i][j] = temp[r]
             temp.replace(temp[r],'')
+    
+    #write created vigenere matrix to a txt file 
+    for letter in vigenere:
+        Tableau.write("%s\n" % letter)
             
     return vigenere
     

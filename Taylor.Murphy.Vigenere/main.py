@@ -43,25 +43,9 @@ if __name__ == '__main__':
     #python3 main.py -m encrypt -s 7487383487438734 -i plainText.txt -o encryptedText.txt 
     #python3 main.py -m decrypt -s 7487383487438734 -i encryptedText.txt -o decryptedText.txt
     
-    #Test Block
-    ############################################
-    
-    #Extracts text version of the keyWord    
-    keyWord = rv.keywordFromSeed(seed)
-    print(keyWord)
-    print (seed)    
-
-    Tableau = open('tableau.txt', 'w')
-
-    vigenere = rv.buildVigenere(symbols)
-
-    for letter in vigenere:
-        Tableau.write("%s\n" % letter)
-    #############################################
-    
     #Testing Block
     #############################################
-    progStatus = '0'
+    progStatus = '1'
     print ("Vigenère Encryption Tool")
     print ("Written By: Taylor Murphy")
 
@@ -78,11 +62,27 @@ if __name__ == '__main__':
             inp = open('plainText.txt','r')
             message = inp.read()
             
-            seed = rv.keyByConcat(key)
-            #    print ("Please enter the seed")
-            #    seed = input("Seed:  ")
+            seed = 12001907
+#            print ("Please enter the seed")
+#            seed = input("Seed: ")
+#            seed = int(seed)
             random.seed(seed)
-        
+            
+            temp = (seed % 100)
+            temp = chr(temp)
+            seed = seed // 100
+            
+            print (temp)
+            print (seed)
+            
+            #Extracts text version of the keyWord    
+            #keyWord = rv.keywordFromSeed(seed)
+            #print("The keyword is: ", keyWord)
+            
+            vigenere = rv.buildVigenere(symbols)
+            
+            progStatus = '3'
+                
         if progStatus == '2':
             pass
         
