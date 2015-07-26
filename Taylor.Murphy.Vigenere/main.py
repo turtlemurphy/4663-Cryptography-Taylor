@@ -55,31 +55,51 @@ if __name__ == '__main__':
         print ("2. Decrypt")
         print ("3. Quit")    
         
-        progStatus = input("Please select from the options above: ")
+        #progStatus = input("Please select from the options above: ")
         print ("********************************************************")    
     
         if progStatus == '1':
             inp = open('plainText.txt','r')
             message = inp.read()
             
-            seed = 12001907
+            seed = 77658472
 #            print ("Please enter the seed")
 #            seed = input("Seed: ")
 #            seed = int(seed)
             random.seed(seed)
-            
-            temp = (seed % 100)
-            temp = chr(temp)
-            seed = seed // 100
-            
-            print (temp)
-            print (seed)
-            
+           
             #Extracts text version of the keyWord    
-            #keyWord = rv.keywordFromSeed(seed)
-            #print("The keyword is: ", keyWord)
+            keyWord = rv.keywordFromSeed(seed)
+            print("The keyword is: ", keyWord)
+            print("The message is: ", message)
             
             vigenere = rv.buildVigenere(symbols)
+            
+            #turn keyword into list for tableau seaerching 
+            keyWord = list(keyWord)
+#            keyRow = ord(keyWord[4 % len(keyWord)])
+#            print (keyRow)
+            
+            
+            keyRow = keyWord[0 % len(keyWord)]
+            print ((vigenere[25][0]) == keyRow)
+            
+#            for i in range(len(message)):
+#                keyRow = 0
+#                messCol = 0
+#                keyRow = keyWord[i % len(keyWord)]
+#                
+#                for j in range(len(symbols)):
+#                    if keyRow == vigenere[j % len(symbols)][0]:
+#                        keyRow = j
+#                  
+#                for k in range(len(symbols)):
+#                    if messCol == vigenere[0][k % len(symbols)]:
+#                        messCol = k
+#                
+#                print (vigenere[keyRow][messCol])
+            
+            
             
             progStatus = '3'
                 
