@@ -6,6 +6,7 @@
 ###############################################
 
 import random
+import re
 
 """
 keywordFromSeed -
@@ -39,21 +40,26 @@ keywordFromSeed -
 def buildVigenere(symbols):
     Tableau = open('tableau.txt', 'w')
     
+    usedRows = []    
     alphabetLen = len(symbols)
     vigenere = [[0 for i in range(alphabetLen)] for i in range(alphabetLen)]
 
     #Build the vigenere matrix
     for i in range(alphabetLen):
-        temp = symbols
+        tempCol = symbols
         for j in range(alphabetLen):
-            r = random.randrange(len(temp))
-            vigenere[i][j] = temp[r]
-            temp.replace(temp[r],'')
-    
+            r = random.randrange(len(tempCol))
+            
+            while ((j == 0) & (r in usedRows)):
+                r = random.randrange(len(symbols))
+            
+            vigenere[i][j] = tempCol[r]
+            tempCol = re.sub(tempCol[r], '', tempCol)
+            
     #write created vigenere matrix to a txt file 
     for letter in vigenere:
         Tableau.write("%s\n" % letter)
-            
+           
     return vigenere
     
 def keywordFromSeed(seed):

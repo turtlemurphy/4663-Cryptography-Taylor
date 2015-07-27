@@ -73,31 +73,56 @@ if __name__ == '__main__':
             print("The keyword is: ", keyWord)
             print("The message is: ", message)
             
+            #build a randomized Vmatrix from symbols
             vigenere = rv.buildVigenere(symbols)
             
-            #turn keyword into list for tableau seaerching 
+            #proto encyrpt 
             keyWord = list(keyWord)
-#            keyRow = ord(keyWord[4 % len(keyWord)])
-#            print (keyRow)
+            message = list(message)
+            
+            for k in range(len(message)):
+            
+                keyRow = keyWord[k % len(keyWord)]
+                #print (keyRow)
+                messCol = message[k]            
+                #print (messCol)
+            
+                row = 0
+                col = 0
+            
+                for i in range(len(symbols)):
+                    if keyRow == vigenere[i][0]:
+                        row = i
+                    
+                for j in range(len(symbols)):
+                    if messCol == vigenere[0][j]:
+                        col = j        
+                    
+                
+            
+            #print (vigenere[row][col])
             
             
-            keyRow = keyWord[0 % len(keyWord)]
-            print ((vigenere[25][0]) == keyRow)
             
-#            for i in range(len(message)):
+            
+            
+#            for i in range(26):
 #                keyRow = 0
 #                messCol = 0
 #                keyRow = keyWord[i % len(keyWord)]
 #                
-#                for j in range(len(symbols)):
-#                    if keyRow == vigenere[j % len(symbols)][0]:
-#                        keyRow = j
+#                for j in range(26):
+#                    if keyRow == ord(vigenere[j % len(symbols)][0]):
+#                        keyRow = int(j)
 #                  
-#                for k in range(len(symbols)):
+#                for k in range(26):
 #                    if messCol == vigenere[0][k % len(symbols)]:
-#                        messCol = k
+#                        messCol = int(k)
+                
+#            print (keyRow)
+#            print (messCol)
 #                
-#                print (vigenere[keyRow][messCol])
+#            print (vigenere[keyRow][messCol])
             
             
             
