@@ -10,31 +10,40 @@ import argparse
 import sys
 import randomized_vigenere as rv
 
-#symbols = """ABCDEF"""
-symbols = """ABCDEFGHIJKLMNOPQRSTUVWXYZ"""
-#symbols = """ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~"""
+def main():
+    parser = argparse.ArgumentParser()
 
-#def main():
-#    parser = argparse.ArgumentParser()
-#
-#    parser.add_argument("-m", "--mode", dest = "mode", default = "encrypt", help = "Enter: encrypt or decrypt")
-#    parser.add_argument("-s", "--seed", dest = "seed", help = "Enter an integer seed value")
-#    parser.add_argument("-i", "--inputfile", dest = "inputFile", help = "Enter the full input filename")
-#    parser.add_argument("-o", "--outputfile", dest = "outputFile", help = "Enter the full output filename")
-#    
-#    args = parser.parse_args()
-#
-#    inp = open(args.inputFile,'r')
-#    message = inp.read()
-#    
-#    if(args.type == 'encrypt'):
-#        data = rv.encrypt(message, args.mode, args.seed)
-#        
-#    else:
-#        data = rv.decrypt(message, args.mode, args.seed)
-#        
-#    out = open(args.outputFile,'w')
-#    out.write(str(data))
+    parser.add_argument("-m", "--mode", dest = "mode", default = "encrypt", help = "Enter: encrypt or decrypt")
+    parser.add_argument("-s", "--seed", dest = "seed", default = 77065084072073083070085078, help = "Enter an integer seed value")
+    parser.add_argument("-i", "--inputfile", dest = "inputFile", help = "Enter the full input filename")
+    parser.add_argument("-o", "--outputfile", dest = "outputFile", help = "Enter the full output filename")
+    
+    args = parser.parse_args()
+
+    print ("Vigenère Encryption Tool")
+    print ("Written By: Taylor Murphy")
+    print ("********************************************************")
+    
+    random.seed(args.seed)
+    keyWord = rv.keywordFromSeed(args.seed)
+
+    inp1 = open(args.inputFile,'r')
+    message = inp1.read()
+    
+    inp2 = open(args.inputFile,'r')
+    ctxt = inp2.read()
+    
+    print("Keyword:     ", keyWord)
+    print("Message:     ", message)
+    
+    if(args.mode == 'encrypt'):
+        rv.encrypt(message, keyWord)
+        
+    else:
+        rv.decrypt(ctxt, keyWord)
+    
+    print ("Exiting Vigenère Encryption Tool, Goodbye")
+    print ("********************************************************")
 
 
 if __name__ == '__main__':
@@ -43,55 +52,14 @@ if __name__ == '__main__':
     #python3 main.py -m encrypt -s 7487383487438734 -i plainText.txt -o encryptedText.txt 
     #python3 main.py -m decrypt -s 7487383487438734 -i encryptedText.txt -o decryptedText.txt
     
-    #Testing Block
-    #############################################
-    progStatus = '1'
-    print ("Vigenère Encryption Tool")
-    print ("Written By: Taylor Murphy")
-
-    while progStatus != '3':
-        print ("********************************************************")
-        print ("1. Encrypt")
-        print ("2. Decrypt")
-        print ("3. Quit")    
-        
-        #progStatus = input("Please select from the options above: ")
-        print ("********************************************************")    
+    main()
     
-        if progStatus == '1':
-            
-            
-            seed = 77065084072073083070085078
-#            print ("Please enter the seed")
-#            seed = input("Seed: ")
-#            seed = int(seed)
-            random.seed(seed)
-            keyWord = rv.keywordFromSeed(seed)
-            
-            inp1 = open('plainText.txt','r')
-            message = inp1.read()
-            
-            print("Keyword:     ", keyWord)
-            print("Message:     ", message)
-            
-            rv.encrypt(message, keyWord)
-
-            inp2 = open('plainText.txt','r')
-            message = inp1.read()            
-            
-            progStatus = '3'
-                
-        if progStatus == '2':
-            pass
-        
-        if progStatus == '3':
-            #exit program
-            print ("Exiting Vigenère Encryption Tool, Goodbye")
-    
-    #############################################
-    
-    
-    
+#    keyWord = rv.keywordFromSeed(77065084072073083070085078)
+#    
+#    inp1 = open('plainText.txt','r')
+#    message = inp1.read()    
+#    
+#    rv.encrypt(message, keyWord)
     
     
     

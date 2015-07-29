@@ -11,32 +11,38 @@ import re
 
 #Possible Alphabets
 #symbols = """ABCDEF"""
-symbols = """ABCDEFGHIJKLMNOPQRSTUVWXYZ"""
-#symbols = """ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~"""
+#symbols = """ABCDEFGHIJKLMNOPQRSTUVWXYZ"""
+symbols = """ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~"""
 
 def buildVigenere(symbols):
     Tableau = open('tableau.txt', 'w')
-    
-    usedRows = []    
+       
     alphabetLen = len(symbols)
     vigenere = [[0 for i in range(alphabetLen)] for i in range(alphabetLen)]
+    
+    row = 0
+    col = 0
+    for i in range(alphabetLen * alphabetLen):
 
-    #Build the vigenere matrix
-    for i in range(alphabetLen):
-        tempCol = symbols
-        for j in range(alphabetLen):
-            r = random.randrange(len(tempCol))
+        vigenere[row][col] = chr(((col + row) % alphabetLen) + 32)
+        col = col + 1
+        
+        if col >= alphabetLen:
+            col = 0
+            row = row + 1
             
-            while ((j == 0) & (r in usedRows)):
-                r = random.randrange(len(symbols))
+    #Uncommenting the following line allows the Vigenere Tableau to be 
+    #randomized however due to this randomization the first column of 
+    #the Tableau contains repeats and as a result destoys the integrity 
+    #of the encryption/decryption
             
-            vigenere[i][j] = tempCol[r]
-            tempCol = re.sub(tempCol[r], '', tempCol)
-            
+    random.shuffle(vigenere)
+
+
     #write created vigenere matrix to a txt file 
-    for letter in vigenere:
-        Tableau.write("%s\n" % letter)
-           
+    for l in vigenere:
+        Tableau.write("%s\n" % l)
+
     return vigenere
     
 def keywordFromSeed(seed):
@@ -112,16 +118,14 @@ def decrypt(cipherTxtMessage, keyword):
                 row = i
                     
         for j in range(len(symbols)):
-            if messLetter == vigenere[0][j]:
+            if messLetter == vigenere[row][j]:
                 col = j      
                         
-        ptxt.append(vigenere[row][col])
+        ptxt.append(vigenere[0][col])
                 
     ptxt = ''.join(ptxt)
-    print("Plain Text: ", ptxt)
+    print("Plain Text:  ", ptxt)
     
     plaintxt = open('decryptedText.txt', 'w')
     for letter in ptxt:
         plaintxt.write("%s" % letter)
-    
-
