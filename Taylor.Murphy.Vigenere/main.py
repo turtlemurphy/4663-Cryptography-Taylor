@@ -11,6 +11,7 @@ import sys
 import randomized_vigenere as rv
 
 def main():
+    #this code allows for command line argument parsing and program execution
     parser = argparse.ArgumentParser()
 
     parser.add_argument("-m", "--mode", dest = "mode", default = "encrypt", help = "Enter: encrypt or decrypt")
@@ -24,9 +25,11 @@ def main():
     print ("Written By: Taylor Murphy")
     print ("********************************************************")
     
+    #use given seed to seed the random number generator and find the keyword
     random.seed(args.seed)
     keyWord = rv.keywordFromSeed(args.seed)
 
+    #read in the message or the cipher text from their respecive files    
     inp1 = open(args.inputFile,'r')
     message = inp1.read()
     
@@ -36,9 +39,9 @@ def main():
     print("Keyword:     ", keyWord)
     print("Message:     ", message)
     
+    #encrypt or decrypt based on what was passed in via command line    
     if(args.mode == 'encrypt'):
-        rv.encrypt(message, keyWord)
-        
+        rv.encrypt(message, keyWord)    
     else:
         rv.decrypt(ctxt, keyWord)
     
@@ -53,14 +56,6 @@ if __name__ == '__main__':
     #python3 main.py -m decrypt -s 7487383487438734 -i encryptedText.txt -o decryptedText.txt
     
     main()
-    
-#    keyWord = rv.keywordFromSeed(77065084072073083070085078)
-#    
-#    inp1 = open('plainText.txt','r')
-#    message = inp1.read()    
-#    
-#    rv.encrypt(message, keyWord)
-    
     
     
     
