@@ -8,34 +8,11 @@
 import random
 import re
 
-"""
-keywordFromSeed -
-    Works by peeling off two digits at a time, and using modulo to map it into
-    the proper range of A-Z for use as a keyword.
 
-# Example:
-    This example spells math, and I chose values 0-25 on purpose, but
-    it really doesn't matter what values we choose because 99 % 26 = 21 or 'V' 
-    or any value % 26 for that matter.
-
-    S1:  seed = 12001907
-         l1   = 12001907 % 100 = 7 = H
-         seed = 12001907 // 100 = 120019
-    
-    S2:  l2   = 120019 % 100 = 19 = T
-         seed = 120019 // 100 = 1200
-    
-    S3:  l3   = 1200 % 100 = 0 = A
-         seed = 1200 // 100 = 12
-    
-    S4:  l4   = 12 % 100 = 12 = M
-         seed = 12 // 100 = 0
-
-    @param {int} seed - An integer value used to seed the random number 
-                        generator that we will use as our keyword for vigenere
-    @return {string} keyword - a string representation of the integer seed
-#############################################################################
-"""
+#Possible Alphabets
+#symbols = """ABCDEF"""
+symbols = """ABCDEFGHIJKLMNOPQRSTUVWXYZ"""
+#symbols = """ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~"""
 
 def buildVigenere(symbols):
     Tableau = open('tableau.txt', 'w')
@@ -67,44 +44,84 @@ def keywordFromSeed(seed):
     Letters = []
 
     while seed > 0:
-        Letters.insert(0,chr((seed % 100)))
-        seed = seed // 100
+        Letters.insert(0,chr((seed % 1000)))
+        seed = seed // 1000
         
     return ''.join(Letters)
     
-def keyByConcat(message):
+def keyByConcat(key):
     
-    message = list(map(ord,message))
+    key = list(map(ord,key))
     encoded = 0
         
-    for i in range(len(message)):
-        encoded *= 100        
-        encoded += message[i]        
+    for i in range(len(key)):
+        encoded *= 1000        
+        encoded += key[i]        
 
     return encoded     
 
-def encrypt(plain_text_message, keyword):
-    pass
+def encrypt(plainTxtMessage, keyword):
+    #build a randomized Vmatrix from symbols
+    vigenere = buildVigenere(symbols)
+    
+    ctxt = []            
+    
+    keyword = list(keyword)
+    plainTxtMessage = list(plainTxtMessage)
+          
+    for k in range(len(plainTxtMessage)):
+        row = 0
+        col = 0        
+        keyRow = keyword[k % len(keyword)]
+        messCol = plainTxtMessage[k]            
+    
+        for i in range(len(symbols)):
+            if keyRow == vigenere[i][0]:
+                row = i
+                    
+        for j in range(len(symbols)):
+            if messCol == vigenere[0][j]:
+                col = j      
+                        
+        ctxt.append(vigenere[row][col])
+                
+    ctxt = ''.join(ctxt)
+    print("Cipher Text: ", ctxt)
+    
+    ciphertxt = open('encryptedText.txt', 'w')
+    for letter in ctxt:
+        ciphertxt.write("%s" % letter)
         
-def decrypt(cipher_text_message, keyword):
-    pass
+def decrypt(cipherTxtMessage, keyword):
+    #build a randomized Vmatrix from symbols
+    vigenere = buildVigenere(symbols)
+    
+    ptxt = []
+    
+    keyword = list(keyword)
+    cipherTxtMessage = list(cipherTxtMessage)
+    
+    for k in range(len(cipherTxtMessage)):
+        row = 0
+        col = 0        
+        keyRow = keyword[k % len(keyword)]
+        messLetter = cipherTxtMessage[k]       
+        
+        for i in range(len(symbols)):
+            if keyRow == vigenere[i][0]:
+                row = i
+                    
+        for j in range(len(symbols)):
+            if messLetter == vigenere[0][j]:
+                col = j      
+                        
+        ptxt.append(vigenere[row][col])
+                
+    ptxt = ''.join(ptxt)
+    print("Plain Text: ", ptxt)
+    
+    plaintxt = open('decryptedText.txt', 'w')
+    for letter in ptxt:
+        plaintxt.write("%s" % letter)
+    
 
-#test block
-###############################################
-
-#symbols = """ABCDEFGHIJKLMNOPQRSTUVWXYZ"""
-#symbols = """ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~"""
-#
-#print (len(symbols))
-#print (symbols.index('A'))
-#message = """ !"#$%&'()*+,-./"""
-#
-#keyWord = keywordFromSeed(keyByConcat(message))
-#print(keyWord)
-#
-#char = chr((25) % 26 + 65)
-#print (char)
-
-
-
-            

@@ -10,7 +10,7 @@ import argparse
 import sys
 import randomized_vigenere as rv
 
-
+#symbols = """ABCDEF"""
 symbols = """ABCDEFGHIJKLMNOPQRSTUVWXYZ"""
 #symbols = """ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~"""
 
@@ -59,72 +59,25 @@ if __name__ == '__main__':
         print ("********************************************************")    
     
         if progStatus == '1':
-            inp = open('plainText.txt','r')
-            message = inp.read()
             
-            seed = 77658472
+            
+            seed = 77065084072073083070085078
 #            print ("Please enter the seed")
 #            seed = input("Seed: ")
 #            seed = int(seed)
             random.seed(seed)
-           
-            #Extracts text version of the keyWord    
             keyWord = rv.keywordFromSeed(seed)
-            print("The keyword is: ", keyWord)
-            print("The message is: ", message)
             
-            #build a randomized Vmatrix from symbols
-            vigenere = rv.buildVigenere(symbols)
+            inp1 = open('plainText.txt','r')
+            message = inp1.read()
             
-            #proto encyrpt 
-            keyWord = list(keyWord)
-            message = list(message)
+            print("Keyword:     ", keyWord)
+            print("Message:     ", message)
             
-            for k in range(len(message)):
-            
-                keyRow = keyWord[k % len(keyWord)]
-                #print (keyRow)
-                messCol = message[k]            
-                #print (messCol)
-            
-                row = 0
-                col = 0
-            
-                for i in range(len(symbols)):
-                    if keyRow == vigenere[i][0]:
-                        row = i
-                    
-                for j in range(len(symbols)):
-                    if messCol == vigenere[0][j]:
-                        col = j        
-                    
-                
-            
-            #print (vigenere[row][col])
-            
-            
-            
-            
-            
-#            for i in range(26):
-#                keyRow = 0
-#                messCol = 0
-#                keyRow = keyWord[i % len(keyWord)]
-#                
-#                for j in range(26):
-#                    if keyRow == ord(vigenere[j % len(symbols)][0]):
-#                        keyRow = int(j)
-#                  
-#                for k in range(26):
-#                    if messCol == vigenere[0][k % len(symbols)]:
-#                        messCol = int(k)
-                
-#            print (keyRow)
-#            print (messCol)
-#                
-#            print (vigenere[keyRow][messCol])
-            
-            
+            rv.encrypt(message, keyWord)
+
+            inp2 = open('plainText.txt','r')
+            message = inp1.read()            
             
             progStatus = '3'
                 
